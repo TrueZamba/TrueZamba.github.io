@@ -7,15 +7,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
     
-    // Elementos del reproductor de música mejorado
+    // Elementos del reproductor de música
     const musicPlayer = document.querySelector('.music-player');
     const playPauseBtn = document.getElementById('play-pause');
     const volumeControl = document.getElementById('volume');
+    const playerToggle = document.querySelector('.player-toggle');
     
     // Audio para la música de fondo
     const backgroundMusic = new Audio('audio/retrowave.mp3');
     backgroundMusic.loop = true;
     backgroundMusic.volume = volumeControl ? volumeControl.value : 0.5;
+    
+    // Evento para minimizar/maximizar el reproductor 
+    // CORRECCIÓN: Añadido evento directamente aquí
+    if (playerToggle) {
+        playerToggle.addEventListener('click', function() {
+            console.log('Toggle clicked'); // Para depuración
+            if (musicPlayer) {
+                musicPlayer.classList.toggle('minimized');
+                console.log('Player minimized status:', musicPlayer.classList.contains('minimized')); // Para depuración
+            }
+        });
+    }
+    
+    // En móviles pequeños, comenzar con reproductor minimizado
+    if (window.innerWidth <= 480 && musicPlayer) {
+        musicPlayer.classList.add('minimized');
+    }
     
     // Simulación de carga para el preloader
     let loadProgress = 0;
@@ -82,104 +100,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Mejorar el reproductor de música
-    function enhanceMusicPlayer() {
-        if (!musicPlayer) return;
-        
-        // Crear el header del reproductor si no existe
-        if (!musicPlayer.querySelector('.player-header')) {
-            const playerHeader = document.createElement('div');
-            playerHeader.className = 'player-header';
+    // Control del reproductor de música
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', function() {
+            const icon = playPauseBtn.querySelector('i');
             
-            const playerTitle = document.createElement('div');
-            playerTitle.className = 'player-title';
-            playerTitle.textContent = 'Música Retro';
-            
-            const playerToggle = document.createElement('button');
-            playerToggle.className = 'player-toggle';
-            playerToggle.innerHTML = '<i class="fas fa-minus minimize-player"></i><i class="fas fa-music expand-player"></i>';
-            
-            playerHeader.appendChild(playerTitle);
-            playerHeader.appendChild(playerToggle);
-            
-            // Insertar el header al inicio del reproductor
-            const playerContent = musicPlayer.querySelector('.player-content');
-            if (playerContent) {
-                musicPlayer.insertBefore(playerHeader, playerContent);
+            if (backgroundMusic.paused) {
+                // Intentar reproducir la música - puede fallar por políticas de autoplay
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Reproducción iniciada con éxito
+                        if (icon) {
+                            icon.classList.remove('fa-play');
+                            icon.classList.add('fa-pause');
+                        }
+                        
+                        // Si el reproductor está minimizado, maximizarlo
+                        if (musicPlayer && musicPlayer.classList.contains('minimized')) {
+                            musicPlayer.classList.remove('minimized');
+                        }
+                    })
+                    .catch(error => {
+                        // Reproducción automática bloqueada
+                        console.log("Reproducción automática bloqueada, requiere interacción del usuario:", error);
+                    });
+                }
             } else {
-                musicPlayer.appendChild(playerHeader);
+                backgroundMusic.pause();
+                if (icon) {
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
             }
-            
-            // Evento para minimizar/maximizar el reproductor
-            playerToggle.addEventListener('click', function() {
-                musicPlayer.classList.toggle('minimized');
-            });
-        }
-        
-        // En móviles pequeños, comenzar con reproductor minimizado
-        if (window.innerWidth <= 480) {
-            musicPlayer.classList.add('minimized');
-        }
-        
-        // Control del reproductor de música
-        if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', function() {
-                const icon = playPauseBtn.querySelector('i');
-                
-                if (backgroundMusic.paused) {
-                    // Intentar reproducir la música - puede fallar por políticas de autoplay
-                    const playPromise = backgroundMusic.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(_ => {
-                            // Reproducción iniciada con éxito
-                            if (icon) {
-                                icon.classList.remove('fa-play');
-                                icon.classList.add('fa-pause');
-                            }
-                            
-                            // Si el reproductor está minimizado, maximizarlo
-                            if (musicPlayer.classList.contains('minimized')) {
-                                musicPlayer.classList.remove('minimized');
-                            }
-                        })
-                        .catch(error => {
-                            // Reproducción automática bloqueada
-                            console.log("Reproducción automática bloqueada, requiere interacción del usuario:", error);
-                        });
-                    }
-                } else {
-                    backgroundMusic.pause();
-                    if (icon) {
-                        icon.classList.remove('fa-pause');
-                        icon.classList.add('fa-play');
-                    }
-                }
-            });
-        }
-        
-        // Control de volumen
-        if (volumeControl) {
-            volumeControl.addEventListener('input', function() {
-                backgroundMusic.volume = volumeControl.value;
-                
-                // Cambiar el icono según el volumen
-                const volumeIcon = document.querySelector('.volume-control i');
-                if (volumeIcon) {
-                    if (parseFloat(volumeControl.value) === 0) {
-                        volumeIcon.className = 'fas fa-volume-mute';
-                    } else if (parseFloat(volumeControl.value) < 0.5) {
-                        volumeIcon.className = 'fas fa-volume-down';
-                    } else {
-                        volumeIcon.className = 'fas fa-volume-up';
-                    }
-                }
-            });
-        }
+        });
     }
     
-    // Llamar a la función para mejorar el reproductor
-    enhanceMusicPlayer();
+    // Control de volumen
+    if (volumeControl) {
+        volumeControl.addEventListener('input', function() {
+            backgroundMusic.volume = volumeControl.value;
+            
+            // Cambiar el icono según el volumen
+            const volumeIcon = document.querySelector('.volume-control i');
+            if (volumeIcon) {
+                if (parseFloat(volumeControl.value) === 0) {
+                    volumeIcon.className = 'fas fa-volume-mute';
+                } else if (parseFloat(volumeControl.value) < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down';
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up';
+                }
+            }
+        });
+    }
     
     // Efecto de animaciones para los elementos al hacer scroll
     const observerOptions = {
