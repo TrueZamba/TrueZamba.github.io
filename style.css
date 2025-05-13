@@ -229,97 +229,44 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 5px var(--primary-color);
 }
 
-/* Corregido: Estado minimizado del reproductor */
-.music-player .minimize-player {
-    display: block;
-}
-
-.music-player .expand-player {
-    display: none;
-}
-
+/* SOLUCIÓN SIMPLE: Reproductor minimizado */
 .music-player.minimized {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     padding: 0;
-    overflow: hidden;
-    cursor: pointer; /* Indicar que es clicable cuando está minimizado */
-    animation: subtle-pulse 3s infinite alternate;
-}
-
-.music-player.minimized .player-header,
-.music-player.minimized .player-content {
-    display: none;
-}
-
-.music-player.minimized .player-toggle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    display: block;
-    opacity: 1;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-
-.music-player.minimized .minimize-player {
-    display: none;
-}
-
-.music-player.minimized .expand-player {
-    display: block;
-}
-
-/* Estilo para el botón de expandir que se crea dinámicamente */
-.expand-btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 1.5rem;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid var(--primary-color);
     cursor: pointer;
-    z-index: 20;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0.9;
-    transition: all 0.3s ease;
+    animation: pulse-glow 2s infinite alternate;
 }
 
-.expand-btn:hover {
-    opacity: 1;
-    transform: scale(1.05);
-    color: var(--secondary-color);
-    text-shadow: 0 0 5px var(--secondary-color);
-}
-
-/* Asegurar que el botón minimizar solo funciona cuando el reproductor está expandido */
-.music-player:not(.minimized) .player-toggle {
-    display: block;
-}
-
-/* Efecto de pulso suave para el reproductor minimizado */
-@keyframes subtle-pulse {
+@keyframes pulse-glow {
     0% {
         box-shadow: 0 0 5px var(--primary-color), 0 0 10px rgba(255, 0, 255, 0.3);
     }
     100% {
-        box-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(255, 0, 255, 0.5);
+        box-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(255, 0, 255, 0.6);
     }
 }
 
-/* Mejorar la visibilidad del icono en el reproductor minimizado */
-.music-player.minimized .expand-btn i {
+/* Mostrar un icono de música cuando está minimizado */
+.music-player.minimized::after {
+    content: "\f001"; /* Código del icono de música de Font Awesome */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--primary-color);
     text-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Ocultar el contenido cuando está minimizado */
+.music-player.minimized .player-content,
+.music-player.minimized .player-header {
+    display: none;
 }
 
 /* Header */
@@ -899,25 +846,17 @@ footer p {
         display: flex;
     }
     
-    .music-player .player-toggle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .music-player::after {
+        content: "\f001";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
         font-size: 1.3rem;
-        display: block;
-        opacity: 1;
-        width: 100%;
-        height: 100%;
+        color: var(--primary-color);
+        text-shadow: 0 0 5px var(--primary-color);
     }
     
-    .music-player:not(.minimized) .player-toggle {
-        position: static;
-        width: auto;
-        height: auto;
-        transform: none;
-        font-size: 0.9rem;
-        opacity: 0.7;
+    .music-player:not(.minimized)::after {
+        display: none;
     }
     
     .control-button {
