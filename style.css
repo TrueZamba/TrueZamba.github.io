@@ -633,4 +633,131 @@ footer p {
     .music-player {
         width: 120px;
     }
+    /* Corrección específica para el centrado del título y sección hero */
+
+/* Aseguramos que el hero section esté correctamente centrado */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    position: relative;
+    margin-top: 0;
+    width: 100%;
+}
+
+/* Corregimos el título principal para que se centre bien y tenga mejor efecto neón */
+.hero h2, .neon-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color), 
+                 0 0 10px var(--primary-color), 
+                 0 0 15px var(--primary-color);
+    /* Eliminar cualquier transformación que pueda afectar la posición */
+    transform: none;
+    letter-spacing: 2px;
+    /* Asegurar que no haya filtros extraños aplicados */
+    filter: none;
+}
+
+/* Corregimos el contenedor del hero para centrar todo correctamente */
+.hero-content {
+    max-width: 800px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Quitar cualquier fondo o efecto que pueda estar causando problemas */
+    background: transparent;
+}
+
+/* Aseguramos que el párrafo esté bien centrado */
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Corregir los botones de CTA para que se centren correctamente */
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Asegurar que el header está correctamente posicionado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: absolute; /* Cambiar a absolute para que no afecte al hero */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background-color: rgba(10, 10, 10, 0.8);
+}
+
+/* Asegurar que el título del logo se vea correctamente */
+.logo h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.8);
+}
+
+/* Mejorar la visibilidad de los botones neón */
+.neon-btn {
+    background: rgba(255, 0, 255, 0.2);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color), 
+                0 0 10px var(--primary-color);
+    padding: 0.8rem 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.neon-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 0 10px var(--primary-color), 
+                0 0 20px var(--primary-color), 
+                0 0 30px var(--primary-color);
+}
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 768px) {
+    .hero h2, .neon-text {
+        font-size: 2rem;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h2, .neon-text {
+        font-size: 1.5rem;
+    }
+}
 }
