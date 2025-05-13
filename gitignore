@@ -1,0 +1,52 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archivos de configuración del editor
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos de dependencias
+node_modules/
+bower_components/
+
+# Archivos de registro
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de construcción
+dist/
+build/
+out/
+.tmp/
+
+# Archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de caché
+.cache/
+.sass-cache/
+
+# Otros archivos y directorios
+.coverage
+.nyc_output
+coverage/
+*.bak
+*.swp
+*~.nib
