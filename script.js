@@ -6,13 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
+    
+    // Elementos del reproductor de música mejorado
+    const musicPlayer = document.querySelector('.music-player');
     const playPauseBtn = document.getElementById('play-pause');
     const volumeControl = document.getElementById('volume');
     
     // Audio para la música de fondo
     const backgroundMusic = new Audio('audio/retrowave.mp3');
     backgroundMusic.loop = true;
-    backgroundMusic.volume = volumeControl.value;
+    backgroundMusic.volume = volumeControl ? volumeControl.value : 0.5;
     
     // Simulación de carga para el preloader
     let loadProgress = 0;
@@ -24,90 +27,159 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ocultar el preloader después de completar la carga
             setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
+                if (preloader) {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }
             }, 500);
         }
-        progress.style.width = loadProgress + '%';
+        if (progress) {
+            progress.style.width = loadProgress + '%';
+        }
     }, 200);
     
     // Función para cambiar el header cuando se hace scroll
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
     });
     
     // Toggle del menú móvil
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
-        
-        // Cambiar el icono del menú
-        const icon = menuToggle.querySelector('i');
-        if (nav.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-    
-    // Cerrar el menú móvil al hacer clic en un enlace
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        });
-    });
-    
-    // Control del reproductor de música
-    playPauseBtn.addEventListener('click', function() {
-        const icon = playPauseBtn.querySelector('i');
-        
-        if (backgroundMusic.paused) {
-            // Intentar reproducir la música - esto puede fallar debido a políticas de autoplay
-            const playPromise = backgroundMusic.play();
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
             
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Reproducción iniciada con éxito
-                    icon.classList.remove('fa-play');
-                    icon.classList.add('fa-pause');
-                })
-                .catch(error => {
-                    // La reproducción automática fue bloqueada
-                    console.log("Reproducción automática bloqueada, requiere interacción del usuario:", error);
-                });
+            // Cambiar el icono del menú
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (nav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             }
-        } else {
-            backgroundMusic.pause();
-            icon.classList.remove('fa-pause');
-            icon.classList.add('fa-play');
-        }
-    });
+        });
+        
+        // Cerrar el menú móvil al hacer clic en un enlace
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
     
-    // Control de volumen
-    volumeControl.addEventListener('input', function() {
-        backgroundMusic.volume = volumeControl.value;
+    // Mejorar el reproductor de música
+    function enhanceMusicPlayer() {
+        if (!musicPlayer) return;
         
-        // Cambiar el icono según el volumen
-        const volumeIcon = document.querySelector('.volume-control i');
-        
-        if (volumeControl.value == 0) {
-            volumeIcon.className = 'fas fa-volume-mute';
-        } else if (volumeControl.value < 0.5) {
-            volumeIcon.className = 'fas fa-volume-down';
-        } else {
-            volumeIcon.className = 'fas fa-volume-up';
+        // Crear el header del reproductor si no existe
+        if (!musicPlayer.querySelector('.player-header')) {
+            const playerHeader = document.createElement('div');
+            playerHeader.className = 'player-header';
+            
+            const playerTitle = document.createElement('div');
+            playerTitle.className = 'player-title';
+            playerTitle.textContent = 'Música Retro';
+            
+            const playerToggle = document.createElement('button');
+            playerToggle.className = 'player-toggle';
+            playerToggle.innerHTML = '<i class="fas fa-minus minimize-player"></i><i class="fas fa-music expand-player"></i>';
+            
+            playerHeader.appendChild(playerTitle);
+            playerHeader.appendChild(playerToggle);
+            
+            // Insertar el header al inicio del reproductor
+            const playerContent = musicPlayer.querySelector('.player-content');
+            if (playerContent) {
+                musicPlayer.insertBefore(playerHeader, playerContent);
+            } else {
+                musicPlayer.appendChild(playerHeader);
+            }
+            
+            // Evento para minimizar/maximizar el reproductor
+            playerToggle.addEventListener('click', function() {
+                musicPlayer.classList.toggle('minimized');
+            });
         }
-    });
+        
+        // En móviles pequeños, comenzar con reproductor minimizado
+        if (window.innerWidth <= 480) {
+            musicPlayer.classList.add('minimized');
+        }
+        
+        // Control del reproductor de música
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', function() {
+                const icon = playPauseBtn.querySelector('i');
+                
+                if (backgroundMusic.paused) {
+                    // Intentar reproducir la música - puede fallar por políticas de autoplay
+                    const playPromise = backgroundMusic.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            // Reproducción iniciada con éxito
+                            if (icon) {
+                                icon.classList.remove('fa-play');
+                                icon.classList.add('fa-pause');
+                            }
+                            
+                            // Si el reproductor está minimizado, maximizarlo
+                            if (musicPlayer.classList.contains('minimized')) {
+                                musicPlayer.classList.remove('minimized');
+                            }
+                        })
+                        .catch(error => {
+                            // Reproducción automática bloqueada
+                            console.log("Reproducción automática bloqueada, requiere interacción del usuario:", error);
+                        });
+                    }
+                } else {
+                    backgroundMusic.pause();
+                    if (icon) {
+                        icon.classList.remove('fa-pause');
+                        icon.classList.add('fa-play');
+                    }
+                }
+            });
+        }
+        
+        // Control de volumen
+        if (volumeControl) {
+            volumeControl.addEventListener('input', function() {
+                backgroundMusic.volume = volumeControl.value;
+                
+                // Cambiar el icono según el volumen
+                const volumeIcon = document.querySelector('.volume-control i');
+                if (volumeIcon) {
+                    if (parseFloat(volumeControl.value) === 0) {
+                        volumeIcon.className = 'fas fa-volume-mute';
+                    } else if (parseFloat(volumeControl.value) < 0.5) {
+                        volumeIcon.className = 'fas fa-volume-down';
+                    } else {
+                        volumeIcon.className = 'fas fa-volume-up';
+                    }
+                }
+            });
+        }
+    }
+    
+    // Llamar a la función para mejorar el reproductor
+    enhanceMusicPlayer();
     
     // Efecto de animaciones para los elementos al hacer scroll
     const observerOptions = {
@@ -180,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (targetElement) {
                 // Calcular la posición de desplazamiento considerando el header fijo
-                const headerHeight = header.offsetHeight;
+                const headerHeight = header ? header.offsetHeight : 0;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
                 window.scrollTo({
