@@ -18,15 +18,66 @@ document.addEventListener('DOMContentLoaded', function() {
     backgroundMusic.loop = true;
     backgroundMusic.volume = volumeControl ? volumeControl.value : 0.5;
     
-    // Evento para minimizar/maximizar el reproductor 
-    if (playerToggle && musicPlayer) {
-        playerToggle.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevenir comportamiento por defecto
-            musicPlayer.classList.toggle('minimized');
-            console.log('Reproductor minimizado:', musicPlayer.classList.contains('minimized'));
+    // CORRECCIÓN: Manejar el clic en el reproductor minimizado
+    if (musicPlayer) {
+        // Crear un nuevo botón para el estado minimizado
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'expand-btn';
+        expandBtn.innerHTML = '<i class="fas fa-music"></i>';
+        expandBtn.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 20;
+            display: none;
+            border-radius: 50%;
+        `;
+        musicPlayer.appendChild(expandBtn);
+        
+        // Cuando se minimiza, mostrar el botón expandir
+        musicPlayer.addEventListener('transitionend', function() {
+            if (musicPlayer.classList.contains('minimized')) {
+                expandBtn.style.display = 'block';
+            } else {
+                expandBtn.style.display = 'none';
+            }
         });
-    } else {
-        console.log('No se encontró el botón toggle o el reproductor');
+        
+        // Evento para minimizar el reproductor
+        if (playerToggle) {
+            playerToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Evitar propagación al contenedor
+                musicPlayer.classList.add('minimized');
+                console.log('Reproductor minimizado');
+            });
+        }
+        
+        // Evento para expandir el reproductor minimizado
+        expandBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Evitar propagación
+            musicPlayer.classList.remove('minimized');
+            console.log('Reproductor expandido');
+        });
+        
+        // Alternativa: hacer que todo el reproductor minimizado sea clicable
+        musicPlayer.addEventListener('click', function(e) {
+            if (musicPlayer.classList.contains('minimized')) {
+                // Solo si el clic es directamente en el reproductor o en el botón de expandir
+                if (e.target === musicPlayer || e.target === expandBtn || e.target.closest('.expand-btn')) {
+                    musicPlayer.classList.remove('minimized');
+                    console.log('Reproductor expandido (desde el contenedor)');
+                }
+            }
+        });
     }
     
     // En móviles pequeños, comenzar con reproductor minimizado
