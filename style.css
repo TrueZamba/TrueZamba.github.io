@@ -139,14 +139,17 @@ img {
     border: none;
     color: var(--text-color);
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    padding: 5px;
+    z-index: 10;
 }
 
 .player-toggle:hover {
     opacity: 1;
     color: var(--secondary-color);
+    transform: scale(1.1);
 }
 
 .player-content {
@@ -226,7 +229,15 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 5px var(--primary-color);
 }
 
-/* Estado minimizado del reproductor */
+/* Corregido: Estado minimizado del reproductor */
+.music-player .minimize-player {
+    display: block;
+}
+
+.music-player .expand-player {
+    display: none;
+}
+
 .music-player.minimized {
     width: 60px;
     height: 60px;
@@ -235,11 +246,8 @@ input[type="range"]::-webkit-slider-thumb {
     overflow: hidden;
 }
 
+.music-player.minimized .player-header,
 .music-player.minimized .player-content {
-    display: none;
-}
-
-.music-player.minimized .player-header {
     display: none;
 }
 
@@ -251,18 +259,17 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 1.5rem;
     display: block;
     opacity: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
-.music-player .expand-player {
+.music-player.minimized .minimize-player {
     display: none;
 }
 
 .music-player.minimized .expand-player {
     display: block;
-}
-
-.music-player.minimized .minimize-player {
-    display: none;
 }
 
 /* Header */
@@ -850,29 +857,17 @@ footer p {
         font-size: 1.3rem;
         display: block;
         opacity: 1;
+        width: 100%;
+        height: 100%;
     }
     
     .music-player:not(.minimized) .player-toggle {
         position: static;
+        width: auto;
+        height: auto;
         transform: none;
         font-size: 0.9rem;
         opacity: 0.7;
-    }
-    
-    .music-player .expand-player {
-        display: block;
-    }
-    
-    .music-player:not(.minimized) .expand-player {
-        display: none;
-    }
-    
-    .music-player .minimize-player {
-        display: none;
-    }
-    
-    .music-player:not(.minimized) .minimize-player {
-        display: block;
     }
     
     .control-button {
