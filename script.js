@@ -19,15 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
     backgroundMusic.volume = volumeControl ? volumeControl.value : 0.5;
     
     // Evento para minimizar/maximizar el reproductor 
-    // CORRECCIÓN: Añadido evento directamente aquí
-    if (playerToggle) {
-        playerToggle.addEventListener('click', function() {
-            console.log('Toggle clicked'); // Para depuración
-            if (musicPlayer) {
-                musicPlayer.classList.toggle('minimized');
-                console.log('Player minimized status:', musicPlayer.classList.contains('minimized')); // Para depuración
-            }
+    if (playerToggle && musicPlayer) {
+        playerToggle.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevenir comportamiento por defecto
+            musicPlayer.classList.toggle('minimized');
+            console.log('Reproductor minimizado:', musicPlayer.classList.contains('minimized'));
         });
+    } else {
+        console.log('No se encontró el botón toggle o el reproductor');
     }
     
     // En móviles pequeños, comenzar con reproductor minimizado
