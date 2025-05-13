@@ -17,10 +17,8 @@ RetroHub es un sitio web estilo retro con efectos neón, diseñado para servir c
 
 ```
 retrohub/
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
+├──style.css
+├──script.js
 ├── img/
 │   ├── retroarch.jpg
 │   ├── dolphin.jpg
