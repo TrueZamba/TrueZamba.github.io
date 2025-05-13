@@ -244,6 +244,8 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     padding: 0;
     overflow: hidden;
+    cursor: pointer; /* Indicar que es clicable cuando está minimizado */
+    animation: subtle-pulse 3s infinite alternate;
 }
 
 .music-player.minimized .player-header,
@@ -270,6 +272,54 @@ input[type="range"]::-webkit-slider-thumb {
 
 .music-player.minimized .expand-player {
     display: block;
+}
+
+/* Estilo para el botón de expandir que se crea dinámicamente */
+.expand-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 20;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.expand-btn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    color: var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+/* Asegurar que el botón minimizar solo funciona cuando el reproductor está expandido */
+.music-player:not(.minimized) .player-toggle {
+    display: block;
+}
+
+/* Efecto de pulso suave para el reproductor minimizado */
+@keyframes subtle-pulse {
+    0% {
+        box-shadow: 0 0 5px var(--primary-color), 0 0 10px rgba(255, 0, 255, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(255, 0, 255, 0.5);
+    }
+}
+
+/* Mejorar la visibilidad del icono en el reproductor minimizado */
+.music-player.minimized .expand-btn i {
+    text-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Header */
