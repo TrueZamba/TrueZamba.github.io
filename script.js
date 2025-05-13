@@ -18,66 +18,24 @@ document.addEventListener('DOMContentLoaded', function() {
     backgroundMusic.loop = true;
     backgroundMusic.volume = volumeControl ? volumeControl.value : 0.5;
     
-    // CORRECCIÓN: Manejar el clic en el reproductor minimizado
+    // SOLUCIÓN SIMPLIFICADA: hacer que el reproductor minimizado sea clicable
     if (musicPlayer) {
-        // Crear un nuevo botón para el estado minimizado
-        const expandBtn = document.createElement('button');
-        expandBtn.className = 'expand-btn';
-        expandBtn.innerHTML = '<i class="fas fa-music"></i>';
-        expandBtn.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 20;
-            display: none;
-            border-radius: 50%;
-        `;
-        musicPlayer.appendChild(expandBtn);
-        
-        // Cuando se minimiza, mostrar el botón expandir
-        musicPlayer.addEventListener('transitionend', function() {
+        // El reproductor completo es clicable para expandirse cuando está minimizado
+        musicPlayer.addEventListener('click', function() {
             if (musicPlayer.classList.contains('minimized')) {
-                expandBtn.style.display = 'block';
-            } else {
-                expandBtn.style.display = 'none';
+                musicPlayer.classList.remove('minimized');
+                console.log('Reproductor expandido');
             }
         });
         
-        // Evento para minimizar el reproductor
+        // El botón minimizar solo minimiza
         if (playerToggle) {
             playerToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation(); // Evitar propagación al contenedor
+                e.stopPropagation(); // Evitar que el clic se propague
                 musicPlayer.classList.add('minimized');
                 console.log('Reproductor minimizado');
             });
         }
-        
-        // Evento para expandir el reproductor minimizado
-        expandBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Evitar propagación
-            musicPlayer.classList.remove('minimized');
-            console.log('Reproductor expandido');
-        });
-        
-        // Alternativa: hacer que todo el reproductor minimizado sea clicable
-        musicPlayer.addEventListener('click', function(e) {
-            if (musicPlayer.classList.contains('minimized')) {
-                // Solo si el clic es directamente en el reproductor o en el botón de expandir
-                if (e.target === musicPlayer || e.target === expandBtn || e.target.closest('.expand-btn')) {
-                    musicPlayer.classList.remove('minimized');
-                    console.log('Reproductor expandido (desde el contenedor)');
-                }
-            }
-        });
     }
     
     // En móviles pequeños, comenzar con reproductor minimizado
@@ -152,7 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Control del reproductor de música
     if (playPauseBtn) {
-        playPauseBtn.addEventListener('click', function() {
+        playPauseBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar que el clic en play/pause minimice el reproductor
             const icon = playPauseBtn.querySelector('i');
             
             if (backgroundMusic.paused) {
@@ -189,7 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Control de volumen
     if (volumeControl) {
-        volumeControl.addEventListener('input', function() {
+        volumeControl.addEventListener('input', function(e) {
+            e.stopPropagation(); // Evitar que el cambio de volumen minimice el reproductor
             backgroundMusic.volume = volumeControl.value;
             
             // Cambiar el icono según el volumen
