@@ -164,25 +164,23 @@ input[type="range"] {
 /* Header */
 header {
     display: flex;
-    justify-content: center; /* Centrado horizontal */
+    justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 5%;
-    width: 100%;
+    padding: 1rem 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
     background-color: rgba(10, 10, 10, 0.8);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    transition: all 0.3s ease;
 }
 
-/* Modificado para un header simple centrado */
-header h1 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 3rem;
-    color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
-    margin: 0;
-    letter-spacing: 2px;
+header.scrolled {
+    padding: 0.5rem 5%;
+    background-color: rgba(10, 10, 10, 0.95);
 }
 
 .logo h1 {
@@ -235,7 +233,7 @@ nav ul li a:hover::after {
     cursor: pointer;
 }
 
-/* Main Content - Agregado para la página temporal */
+/* Main Content - Para la página temporal */
 main {
     flex: 1;
     display: flex;
@@ -286,8 +284,10 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0;
     position: relative;
+    margin-top: 0;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -307,73 +307,114 @@ main {
 
 .hero-content {
     max-width: 800px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
 }
 
-.hero h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+.hero h2, .neon-text {
     font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color), 
+                 0 0 10px var(--primary-color), 
+                 0 0 15px var(--primary-color);
+    transform: none;
+    letter-spacing: 2px;
+    filter: none;
 }
 
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
     opacity: 0.8;
 }
 
 .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
+    width: 100%;
 }
 
 /* Sections */
-.section {
-    padding: 6rem 5% 4rem;
+.section, section {
+    padding: 5rem 0 3rem;
+    margin: 0;
+    width: 100%;
 }
 
-.section-header {
+.section-header, section h2 {
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.section-header h2 {
-    font-size: 2.5rem;
+.section-header h2, section h2 {
     font-family: 'Press Start 2P', cursive;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    width: 100%;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color), 
+                 0 0 10px var(--primary-color), 
+                 0 0 15px var(--primary-color);
+    padding-top: 2rem;
     display: inline-block;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
+    padding: 0 5%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* Cards */
 .card {
-    background-color: var(--card-bg);
+    background-color: rgba(20, 20, 30, 0.7);
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 0, 255, 0.2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
 }
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--neon-box-shadow);
+    box-shadow: 0 0 10px var(--primary-color), 
+                0 0 20px rgba(255, 0, 255, 0.3);
 }
 
 .card-image {
     height: 200px;
     overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    padding: 1rem;
     transition: transform 0.5s ease;
 }
 
@@ -383,12 +424,16 @@ main {
 
 .card-content {
     padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-content h3 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     color: var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-color);
 }
 
 .card-content p {
@@ -396,6 +441,12 @@ main {
     font-size: 0.9rem;
     opacity: 0.8;
     line-height: 1.6;
+    flex-grow: 1;
+}
+
+.card .btn {
+    align-self: center;
+    margin-top: auto;
 }
 
 /* About Section */
@@ -462,7 +513,10 @@ footer p {
 
 .btn:hover {
     background: var(--primary-color);
-    box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    color: white;
+    box-shadow: 0 0 10px var(--primary-color), 
+                0 0 20px var(--primary-color), 
+                0 0 30px var(--primary-color);
     transform: translateY(-3px);
 }
 
@@ -471,11 +525,17 @@ footer p {
     color: var(--text-color);
     border: 1px solid var(--primary-color);
     box-shadow: var(--neon-box-shadow);
+    padding: 0.8rem 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .neon-btn:hover {
     background: var(--primary-color);
-    box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    color: white;
+    box-shadow: 0 0 10px var(--primary-color), 
+                0 0 20px var(--primary-color), 
+                0 0 30px var(--primary-color);
     transform: translateY(-3px);
 }
 
@@ -509,34 +569,23 @@ footer p {
         gap: 1rem;
     }
     
-    .section {
+    .section, section {
         padding: 5rem 3% 3rem;
     }
     
-    .hero h2 {
+    .hero h2, .neon-text {
         font-size: 2.5rem;
     }
     
-    header h1 {
-        font-size: 2.5rem;
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 0 3%;
     }
 }
 
 @media (max-width: 768px) {
     header {
         padding: 1rem 3%;
-    }
-    
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .message {
-        padding: 2rem;
-    }
-    
-    .message h2 {
-        font-size: 1.8rem;
     }
     
     nav {
@@ -569,7 +618,7 @@ footer p {
         z-index: 201;
     }
     
-    .hero h2 {
+    .hero h2, .neon-text {
         font-size: 2rem;
     }
     
@@ -577,17 +626,24 @@ footer p {
         font-size: 1rem;
     }
     
-    .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    .section-header h2, section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
     }
     
-    .section-header h2 {
-        font-size: 2rem;
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .card-image {
+        height: 180px;
     }
     
     .cta-buttons {
         flex-direction: column;
         gap: 1rem;
+        align-items: center;
     }
     
     .music-player {
@@ -596,14 +652,40 @@ footer p {
         right: 10px;
     }
     
+    .message {
+        padding: 2rem;
+    }
+    
+    .message h2 {
+        font-size: 1.8rem;
+    }
+    
     .btn {
         padding: 0.8rem 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    header h1 {
+    .hero h2, .neon-text {
+        font-size: 1.5rem;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .section, section {
+        padding: 4rem 1rem 2rem;
+    }
+    
+    .section-header h2, section h2 {
         font-size: 1.7rem;
+    }
+    
+    .music-player {
+        width: 120px;
     }
     
     .message {
@@ -613,151 +695,4 @@ footer p {
     .message h2 {
         font-size: 1.5rem;
     }
-    
-    .hero h2 {
-        font-size: 1.5rem;
-    }
-    
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .section {
-        padding: 4rem 1rem 2rem;
-    }
-    
-    .section-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .music-player {
-        width: 120px;
-    }
-    /* Corrección específica para el centrado del título y sección hero */
-
-/* Aseguramos que el hero section esté correctamente centrado */
-.hero {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0;
-    position: relative;
-    margin-top: 0;
-    width: 100%;
-}
-
-/* Corregimos el título principal para que se centre bien y tenga mejor efecto neón */
-.hero h2, .neon-text {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    width: 100%;
-    color: var(--primary-color);
-    text-shadow: 0 0 5px var(--primary-color), 
-                 0 0 10px var(--primary-color), 
-                 0 0 15px var(--primary-color);
-    /* Eliminar cualquier transformación que pueda afectar la posición */
-    transform: none;
-    letter-spacing: 2px;
-    /* Asegurar que no haya filtros extraños aplicados */
-    filter: none;
-}
-
-/* Corregimos el contenedor del hero para centrar todo correctamente */
-.hero-content {
-    max-width: 800px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* Quitar cualquier fondo o efecto que pueda estar causando problemas */
-    background: transparent;
-}
-
-/* Aseguramos que el párrafo esté bien centrado */
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-/* Corregir los botones de CTA para que se centren correctamente */
-.cta-buttons {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    width: 100%;
-}
-
-/* Asegurar que el header está correctamente posicionado */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    position: absolute; /* Cambiar a absolute para que no afecte al hero */
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    background-color: rgba(10, 10, 10, 0.8);
-}
-
-/* Asegurar que el título del logo se vea correctamente */
-.logo h1 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.5rem;
-    margin: 0;
-    color: var(--primary-color);
-    text-shadow: 0 0 5px rgba(255, 0, 255, 0.8);
-}
-
-/* Mejorar la visibilidad de los botones neón */
-.neon-btn {
-    background: rgba(255, 0, 255, 0.2);
-    color: var(--text-color);
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 0 5px var(--primary-color), 
-                0 0 10px var(--primary-color);
-    padding: 0.8rem 1.8rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.neon-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    box-shadow: 0 0 10px var(--primary-color), 
-                0 0 20px var(--primary-color), 
-                0 0 30px var(--primary-color);
-}
-
-/* Media queries para ajustes responsivos */
-@media (max-width: 768px) {
-    .hero h2, .neon-text {
-        font-size: 2rem;
-    }
-    
-    .hero-content {
-        padding: 1rem;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h2, .neon-text {
-        font-size: 1.5rem;
-    }
-}
 }
