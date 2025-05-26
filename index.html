@@ -160,19 +160,94 @@
         </div>
 
         <div class="grid-container" id="emulatorsGrid">
-            <!-- RetroArch -->
-            <div class="card emulator-card fade-in" data-category="popular">
-                <div class="card-badge">
-                    <span class="badge-text">Recomendado</span>
-                </div>
+            <!-- Citra (Nintendo 3DS) -->
+            <div class="card emulator-card fade-in" data-category="new">
                 <div class="card-image">
                     <div class="image-placeholder">
-                        <i class="fas fa-layer-group"></i>
+                        <i class="fas fa-gamepad"></i>
                     </div>
                 </div>
                 <div class="card-content">
                     <div class="card-header-info">
-                        <h3>RetroArch</h3>
+                        <h3>Citra</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.7/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo 3DS</span>
+                        <span class="tag">3D</span>
+                        <span class="tag">HD</span>
+                    </div>
+                    <p>Emulador de Nintendo 3DS con mejoras gráficas y soporte para efectos 3D.</p>
+                    <div class="card-actions">
+                        <a href="https://citra-emu.org/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Boy Advance (Game Boy Advance) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Visual Boy Advance</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Game Boy Advance</span>
+                        <span class="tag">Portátil</span>
+                        <span class="tag">Clásico</span>
+                    </div>
+                    <p>El emulador más popular para Game Boy Advance con excelente compatibilidad.</p>
+                    <div class="card-actions">
+                        <a href="https://sourceforge.net/projects/vba/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SameBoy (Game Boy / Game Boy Color) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>SameBoy</h3>
                         <div class="card-rating">
                             <div class="stars">
                                 <i class="fas fa-star"></i>
@@ -185,13 +260,13 @@
                         </div>
                     </div>
                     <div class="card-tags">
-                        <span class="tag">Multi-Sistema</span>
-                        <span class="tag">Gratuito</span>
-                        <span class="tag popular-tag">Popular</span>
+                        <span class="tag">Game Boy</span>
+                        <span class="tag">Game Boy Color</span>
+                        <span class="tag">Preciso</span>
                     </div>
-                    <p>Frontend multiplataforma para emuladores con soporte para más de 50 sistemas diferentes.</p>
+                    <p>Emulador de alta precisión para Game Boy y Game Boy Color con audio perfecto.</p>
                     <div class="card-actions">
-                        <a href="https://www.retroarch.com/" target="_blank" class="btn btn-primary">
+                        <a href="https://sameboy.github.io/" target="_blank" class="btn btn-primary">
                             <span>Descargar</span>
                             <i class="fas fa-external-link-alt"></i>
                         </a>
@@ -202,11 +277,131 @@
                 </div>
             </div>
 
-            <!-- Dolphin -->
+            <!-- Project64 (Nintendo 64) -->
             <div class="card emulator-card fade-in" data-category="popular">
                 <div class="card-image">
                     <div class="image-placeholder">
-                        <i class="fas fa-fish"></i>
+                        <i class="fas fa-cube"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Project64</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.5/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo 64</span>
+                        <span class="tag">3D</span>
+                        <span class="tag">Clásico</span>
+                    </div>
+                    <p>El emulador más conocido para Nintendo 64 con gran compatibilidad de juegos.</p>
+                    <div class="card-actions">
+                        <a href="https://www.pj64-emu.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SNES9x (Super Nintendo) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>SNES9x</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Super Nintendo</span>
+                        <span class="tag">16-bit</span>
+                        <span class="tag">Estable</span>
+                    </div>
+                    <p>Emulador clásico de Super Nintendo con excelente compatibilidad y rendimiento.</p>
+                    <div class="card-actions">
+                        <a href="https://www.snes9x.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FCEUX (Nintendo/Famicom) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>FCEUX</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.6/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo/NES</span>
+                        <span class="tag">8-bit</span>
+                        <span class="tag">Retro</span>
+                    </div>
+                    <p>Emulador completo de Nintendo Entertainment System con herramientas avanzadas.</p>
+                    <div class="card-actions">
+                        <a href="http://fceux.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dolphin (GameCube/Wii) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-badge">
+                    <span class="badge-text">Popular</span>
+                </div>
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-cube"></i>
                     </div>
                 </div>
                 <div class="card-content">
@@ -220,15 +415,15 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <span class="rating-text">(4.8/5)</span>
+                            <span class="rating-text">(4.9/5)</span>
                         </div>
                     </div>
                     <div class="card-tags">
                         <span class="tag">GameCube</span>
                         <span class="tag">Wii</span>
-                        <span class="tag">HD</span>
+                        <span class="tag popular-tag">HD</span>
                     </div>
-                    <p>El mejor emulador para GameCube y Wii con soporte completo para controles y HD.</p>
+                    <p>El mejor emulador para GameCube y Wii con mejoras gráficas en HD.</p>
                     <div class="card-actions">
                         <a href="https://dolphin-emu.org/" target="_blank" class="btn btn-primary">
                             <span>Descargar</span>
@@ -241,50 +436,11 @@
                 </div>
             </div>
 
-            <!-- PPSSPP -->
+            <!-- PCSX2 (PlayStation 2) -->
             <div class="card emulator-card fade-in" data-category="popular">
                 <div class="card-image">
                     <div class="image-placeholder">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="card-header-info">
-                        <h3>PPSSPP</h3>
-                        <div class="card-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="rating-text">(4.5/5)</span>
-                        </div>
-                    </div>
-                    <div class="card-tags">
-                        <span class="tag">PSP</span>
-                        <span class="tag">Portátil</span>
-                        <span class="tag">Móvil</span>
-                    </div>
-                    <p>Emulador de PlayStation Portable para PC y dispositivos móviles.</p>
-                    <div class="card-actions">
-                        <a href="https://www.ppsspp.org/" target="_blank" class="btn btn-primary">
-                            <span>Descargar</span>
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PCSX2 -->
-            <div class="card emulator-card fade-in" data-category="new">
-                <div class="card-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-tv"></i>
+                        <i class="fab fa-playstation"></i>
                     </div>
                 </div>
                 <div class="card-content">
@@ -304,10 +460,89 @@
                     <div class="card-tags">
                         <span class="tag">PlayStation 2</span>
                         <span class="tag">HD</span>
+                        <span class="tag">Open Source</span>
                     </div>
-                    <p>Emulador de PlayStation 2 para PC con mejoras gráficas avanzadas.</p>
+                    <p>Emulador maduro de PlayStation 2 con excelente compatibilidad y mejoras.</p>
                     <div class="card-actions">
                         <a href="https://pcsx2.net/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PPSSPP (PlayStation Portable) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>PPSSPP</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">PlayStation Portable</span>
+                        <span class="tag">HD</span>
+                        <span class="tag">Multiplataforma</span>
+                    </div>
+                    <p>Excelente emulador de PSP con mejoras gráficas y gran rendimiento.</p>
+                    <div class="card-actions">
+                        <a href="https://www.ppsspp.org/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xemu (Xbox Original) -->
+            <div class="card emulator-card fade-in" data-category="new">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fab fa-xbox"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Xemu</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.2/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Xbox Original</span>
+                        <span class="tag">HD</span>
+                        <span class="tag">En desarrollo</span>
+                    </div>
+                    <p>Emulador de Xbox original en desarrollo activo con compatibilidad creciente.</p>
+                    <div class="card-actions">
+                        <a href="https://xemu.app/" target="_blank" class="btn btn-primary">
                             <span>Descargar</span>
                             <i class="fas fa-external-link-alt"></i>
                         </a>
@@ -328,6 +563,48 @@
         </div>
         
         <div class="grid-container">
+            <!-- r-roms GitHub -->
+            <div class="card rom-card fade-in">
+                <div class="card-badge">
+                    <span class="badge-text">Destacado</span>
+                </div>
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fab fa-github"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>r/ROMs Megathread</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.9/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag verified-tag">Verificado</span>
+                        <span class="tag">Comunidad</span>
+                        <span class="tag">Actualizado</span>
+                    </div>
+                    <p>Repositorio completo y actualizado de la comunidad r/ROMs con enlaces seguros verificados.</p>
+                    <div class="card-actions">
+                        <a href="https://r-roms.github.io/" target="_blank" class="btn btn-primary">
+                            <span>Explorar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Internet Archive -->
             <div class="card rom-card fade-in">
                 <div class="card-image">
