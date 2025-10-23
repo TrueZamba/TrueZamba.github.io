@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroHub - Emuladores y ROMs</title>
+    <meta name="description" content="Tu hub definitivo de emulación retro - Emuladores, ROMs y tutoriales">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader">
+            <div class="loading-logo">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            <span class="loading-text">Cargando RetroHub</span>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="loadProgress"></div>
+                </div>
+                <span class="progress-text" id="progressText">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reproductor de Música -->
+    <div class="music-player" id="musicPlayer">
+        <div class="player-header">
+            <div class="player-title">
+                <i class="fas fa-music"></i>
+                <span>RetroWave FM</span>
+            </div>
+            <button class="player-toggle" id="playerToggle">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <div class="player-content" id="playerContent">
+            <div class="player-info">
+                <div class="track-title" id="trackTitle">Synthwave Dreams</div>
+                <div class="track-artist">RetroHub Radio</div>
+            </div>
+            <div class="player-controls">
+                <button id="prevBtn" class="control-button">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button id="playPauseBtn" class="control-button play-pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="nextBtn" class="control-button">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+            <div class="volume-control">
+                <i class="fas fa-volume-up" id="volumeIcon"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                <span class="volume-percentage" id="volumePercentage">50%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h1>RetroHub</h1>
+            </div>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Inicio</a></li>
+                    <li><a href="#emulators" class="nav-link">Emuladores</a></li>
+                    <li><a href="#roms" class="nav-link">ROMs</a></li>
+                    <li><a href="#about" class="nav-link">Acerca de</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="search-toggle" id="searchToggle">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Overlay -->
+        <div class="search-overlay" id="searchOverlay">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Buscar emuladores, ROMs..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="search-close" id="searchClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">
+                <span class="title-main">RetroHub</span>
+                <span class="title-sub">Tu hub definitivo de emulación retro</span>
+            </h2>
+            <p class="hero-description">Descubre los mejores emuladores y encuentra ROMs clásicas</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Emuladores</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1000">0</span>
+                    <span class="stat-label">ROMs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10000">0</span>
+                    <span class="stat-label">Usuarios</span>
+                </div>
+            </div>
+            <div class="cta-buttons">
+                <a href="#emulators" class="btn btn-primary">
+                    <span>Explorar Emuladores</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#roms" class="btn btn-secondary">
+                    <span>Buscar ROMs</span>
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emuladores Section -->
+    <section id="emulators" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Emuladores Destacados</h2>
+            <p class="section-subtitle">Los mejores emuladores probados por nuestra comunidad</p>
+        </div>
+        
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">Todos</button>
+            <button class="filter-tab" data-filter="popular">Populares</button>
+            <button class="filter-tab" data-filter="new">Nuevos</button>
+        </div>
+
+        <div class="grid-container" id="emulatorsGrid">
+            <!-- Citra (Nintendo 3DS) -->
+            <div class="card emulator-card fade-in" data-category="new">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Citra</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.7/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo 3DS</span>
+                        <span class="tag">3D</span>
+                        <span class="tag">HD</span>
+                    </div>
+                    <p>Emulador de Nintendo 3DS con mejoras gráficas y soporte para efectos 3D.</p>
+                    <div class="card-actions">
+                        <a href="https://citra-emu.org/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Boy Advance (Game Boy Advance) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Visual Boy Advance</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Game Boy Advance</span>
+                        <span class="tag">Portátil</span>
+                        <span class="tag">Clásico</span>
+                    </div>
+                    <p>El emulador más popular para Game Boy Advance con excelente compatibilidad.</p>
+                    <div class="card-actions">
+                        <a href="https://sourceforge.net/projects/vba/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SameBoy (Game Boy / Game Boy Color) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>SameBoy</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.9/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Game Boy</span>
+                        <span class="tag">Game Boy Color</span>
+                        <span class="tag">Preciso</span>
+                    </div>
+                    <p>Emulador de alta precisión para Game Boy y Game Boy Color con audio perfecto.</p>
+                    <div class="card-actions">
+                        <a href="https://sameboy.github.io/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project64 (Nintendo 64) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Project64</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.5/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo 64</span>
+                        <span class="tag">3D</span>
+                        <span class="tag">Clásico</span>
+                    </div>
+                    <p>El emulador más conocido para Nintendo 64 con gran compatibilidad de juegos.</p>
+                    <div class="card-actions">
+                        <a href="https://www.pj64-emu.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SNES9x (Super Nintendo) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>SNES9x</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Super Nintendo</span>
+                        <span class="tag">16-bit</span>
+                        <span class="tag">Estable</span>
+                    </div>
+                    <p>Emulador clásico de Super Nintendo con excelente compatibilidad y rendimiento.</p>
+                    <div class="card-actions">
+                        <a href="https://www.snes9x.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FCEUX (Nintendo/Famicom) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>FCEUX</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.6/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Nintendo/NES</span>
+                        <span class="tag">8-bit</span>
+                        <span class="tag">Retro</span>
+                    </div>
+                    <p>Emulador completo de Nintendo Entertainment System con herramientas avanzadas.</p>
+                    <div class="card-actions">
+                        <a href="http://fceux.com/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dolphin (GameCube/Wii) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-badge">
+                    <span class="badge-text">Popular</span>
+                </div>
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Dolphin</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.9/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">GameCube</span>
+                        <span class="tag">Wii</span>
+                        <span class="tag popular-tag">HD</span>
+                    </div>
+                    <p>El mejor emulador para GameCube y Wii con mejoras gráficas en HD.</p>
+                    <div class="card-actions">
+                        <a href="https://dolphin-emu.org/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PCSX2 (PlayStation 2) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fab fa-playstation"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>PCSX2</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.7/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">PlayStation 2</span>
+                        <span class="tag">HD</span>
+                        <span class="tag">Open Source</span>
+                    </div>
+                    <p>Emulador maduro de PlayStation 2 con excelente compatibilidad y mejoras.</p>
+                    <div class="card-actions">
+                        <a href="https://pcsx2.net/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PPSSPP (PlayStation Portable) -->
+            <div class="card emulator-card fade-in" data-category="popular">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>PPSSPP</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">PlayStation Portable</span>
+                        <span class="tag">HD</span>
+                        <span class="tag">Multiplataforma</span>
+                    </div>
+                    <p>Excelente emulador de PSP con mejoras gráficas y gran rendimiento.</p>
+                    <div class="card-actions">
+                        <a href="https://www.ppsspp.org/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xemu (Xbox Original) -->
+            <div class="card emulator-card fade-in" data-category="new">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fab fa-xbox"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Xemu</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.2/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Xbox Original</span>
+                        <span class="tag">HD</span>
+                        <span class="tag">En desarrollo</span>
+                    </div>
+                    <p>Emulador de Xbox original en desarrollo activo con compatibilidad creciente.</p>
+                    <div class="card-actions">
+                        <a href="https://xemu.app/" target="_blank" class="btn btn-primary">
+                            <span>Descargar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROMs Section -->
+    <section id="roms" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Repositorios de ROMs</h2>
+            <p class="section-subtitle">Encuentra los mejores repositorios legales y seguros</p>
+        </div>
+        
+        <div class="grid-container">
+            <!-- r-roms GitHub -->
+            <div class="card rom-card fade-in">
+                <div class="card-badge">
+                    <span class="badge-text">Destacado</span>
+                </div>
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fab fa-github"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>r/ROMs Megathread</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.9/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag verified-tag">Verificado</span>
+                        <span class="tag">Comunidad</span>
+                        <span class="tag">Actualizado</span>
+                    </div>
+                    <p>Repositorio completo y actualizado de la comunidad r/ROMs con enlaces seguros verificados.</p>
+                    <div class="card-actions">
+                        <a href="https://r-roms.github.io/" target="_blank" class="btn btn-primary">
+                            <span>Explorar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internet Archive -->
+            <div class="card rom-card fade-in">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-archive"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Internet Archive</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">(5.0/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag verified-tag">Verificado</span>
+                        <span class="tag">Legal</span>
+                        <span class="tag">Histórico</span>
+                    </div>
+                    <p>La mayor colección legal de software y juegos clásicos para preservación histórica.</p>
+                    <div class="card-actions">
+                        <a href="https://archive.org/details/softwarelibrary" target="_blank" class="btn btn-primary">
+                            <span>Explorar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vimm's Lair -->
+            <div class="card rom-card fade-in">
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header-info">
+                        <h3>Vimm's Lair</h3>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">(4.7/5)</span>
+                        </div>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag">Retro</span>
+                        <span class="tag">Consolas</span>
+                        <span class="tag">Curado</span>
+                    </div>
+                    <p>Repositorio curado de juegos retro para múltiples consolas clásicas.</p>
+                    <div class="card-actions">
+                        <a href="https://vimm.net/" target="_blank" class="btn btn-primary">
+                            <span>Visitar</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <button class="btn btn-secondary" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Acerca de RetroHub</h2>
+                    <p>RetroHub es más que una simple colección de enlaces. Somos una comunidad apasionada por la preservación de la historia de los videojuegos.</p>
+                    <p>Nuestro objetivo es proporcionar acceso fácil y seguro a emuladores de calidad y repositorios confiables.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Seguridad</h4>
+                            <p>Enlaces verificados regularmente</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <h4>Comunidad</h4>
+                            <p>Una comunidad activa de entusiastas</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Preservación</h4>
+                            <p>Comprometidos con la historia del gaming</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>RetroHub</h3>
+                    </div>
+                    <p>La plataforma definitiva para la emulación retro.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-reddit"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#emulators">Emuladores</a></li>
+                        <li><a href="#roms">ROMs</a></li>
+                        <li><a href="#about">Acerca de</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Comunidad</h4>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Foro</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Ayuda</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 RetroHub - Todos los derechos reservados</p>
+                </div>
+                <p class="disclaimer">
+                    Este sitio es puramente informativo. No alojamos contenido protegido por derechos de autor.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
