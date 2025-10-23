@@ -177,6 +177,8 @@
         <a href="index.html" class="back-link">← Volver al inicio</a>
     </div>
 
+    <!-- EmulatorJS -->
+    <script src="https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js"></script>
     <script>
         function loadGame() {
             const select = document.getElementById('game-select');
@@ -187,49 +189,43 @@
                 return;
             }
 
-            // Verificar que la ROM existe (opcional, pero útil)
-            fetch(gameUrl, { method: 'HEAD' })
-                .then(response => {
-                    if (!response.ok) throw new Error('ROM no encontrada');
-                    initEmulator(gameUrl);
-                })
-                .catch(() => {
-                    alert('Error: No se pudo cargar la ROM. Asegúrate de que esté subida correctamente.');
-                });
-        }
-
-        function initEmulator(gameUrl) {
+            // Limpiar contenedor previo
             const container = document.getElementById('game-container');
             container.innerHTML = '';
             container.classList.add('active');
 
-            // Configuración de EmulatorJS
+            // Configurar EmulatorJS
             window.EJS_player = '#game-container';
             window.EJS_core = 'gba';
             window.EJS_gameUrl = gameUrl;
             window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
             window.EJS_startOnLoaded = true;
 
-            // Cargar EmulatorJS solo una vez
+            // Cargar el emulador (si no está cargado)
             if (!window.emulatorScriptLoaded) {
                 const script = document.createElement('script');
                 script.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
                 script.onload = () => {
                     window.emulatorScriptLoaded = true;
+                    startEmulator();
                 };
                 document.head.appendChild(script);
             } else {
-                // Si ya se cargó, reiniciar manualmente (EmulatorJS lo maneja internamente al cambiar EJS_gameUrl)
-                if (typeof EJS_emulator !== 'undefined') {
-                    EJS_emulator.destroy();
-                }
-                new EmulatorJS(window.EJS_player, {
-                    core: window.EJS_core,
-                    url: window.EJS_gameUrl,
-                    pathtodata: window.EJS_pathtodata,
-                    startOnLoaded: window.EJS_startOnLoaded
-                });
+                startEmulator();
             }
+        }
+
+        function startEmulator() {
+            // Forzar recarga del emulador
+            if (typeof EJS_emulator !== 'undefined') {
+                EJS_emulator.destroy();
+            }
+            new EmulatorJS(window.EJS_player, {
+                core: window.EJS_core,
+                url: window.EJS_gameUrl,
+                pathtodata: window.EJS_pathtodata,
+                startOnLoaded: window.EJS_startOnLoaded
+            });
         }
     </script>
 </body>
