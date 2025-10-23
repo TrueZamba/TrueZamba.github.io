@@ -12,13 +12,14 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            color: #333;
         }
 
         .container {
@@ -28,35 +29,35 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            color: #333;
+            font-size: 2.5rem;
             margin-bottom: 30px;
-            font-size: 2.5em;
+            color: #4a5568;
+            font-weight: 700;
         }
 
         .game-selector {
             margin-bottom: 30px;
-            text-align: center;
         }
 
         .game-selector label {
             display: block;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #555;
-            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #2d3748;
         }
 
         .game-selector select {
             width: 100%;
             max-width: 500px;
-            padding: 15px;
-            font-size: 1.1em;
-            border: 3px solid #667eea;
-            border-radius: 10px;
+            padding: 14px;
+            font-size: 1.1rem;
+            border: 2px solid #667eea;
+            border-radius: 12px;
             background: white;
             cursor: pointer;
             transition: all 0.3s;
@@ -64,22 +65,16 @@
 
         .game-selector select:hover {
             border-color: #764ba2;
-            transform: scale(1.02);
-        }
-
-        .game-selector select:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
         }
 
         .btn-load {
             margin-top: 15px;
-            padding: 15px 40px;
-            font-size: 1.2em;
+            padding: 14px 36px;
+            font-size: 1.15rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
@@ -87,21 +82,17 @@
 
         .btn-load:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-load:active {
-            transform: translateY(0);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
         #game-container {
             width: 100%;
             height: 600px;
             background: #000;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
+            margin-top: 25px;
             display: none;
-            margin-top: 20px;
         }
 
         #game-container.active {
@@ -109,40 +100,43 @@
         }
 
         .instructions {
-            margin-top: 20px;
+            margin-top: 30px;
             padding: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
+            background: #f8f9fa;
+            border-radius: 12px;
             border-left: 5px solid #667eea;
+            text-align: left;
         }
 
         .instructions h3 {
-            margin-bottom: 10px;
-            color: #333;
+            margin-bottom: 12px;
+            color: #2d3748;
+            font-size: 1.3rem;
         }
 
         .instructions ul {
-            margin-left: 20px;
-            color: #555;
+            padding-left: 20px;
+            color: #4a5568;
         }
 
         .instructions li {
-            margin: 5px 0;
+            margin: 6px 0;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #333;
+            margin-top: 25px;
+            padding: 10px 24px;
+            background: #2d3748;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
             transition: all 0.3s;
         }
 
         .back-link:hover {
-            background: #555;
+            background: #4a5568;
             transform: translateY(-2px);
         }
     </style>
@@ -150,7 +144,7 @@
 <body>
     <div class="container">
         <h1>🎮 Emulador Game Boy Advance</h1>
-        
+
         <div class="game-selector">
             <label for="game-select">Selecciona un juego:</label>
             <select id="game-select">
@@ -183,26 +177,59 @@
         <a href="index.html" class="back-link">← Volver al inicio</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js"></script>
     <script>
         function loadGame() {
             const select = document.getElementById('game-select');
             const gameUrl = select.value;
-            
+
             if (!gameUrl) {
-                alert('Por favor, selecciona un juego primero');
+                alert('Por favor, selecciona un juego primero.');
                 return;
             }
 
+            // Verificar que la ROM existe (opcional, pero útil)
+            fetch(gameUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (!response.ok) throw new Error('ROM no encontrada');
+                    initEmulator(gameUrl);
+                })
+                .catch(() => {
+                    alert('Error: No se pudo cargar la ROM. Asegúrate de que esté subida correctamente.');
+                });
+        }
+
+        function initEmulator(gameUrl) {
             const container = document.getElementById('game-container');
             container.innerHTML = '';
             container.classList.add('active');
 
-            EJS_player = '#game-container';
-            EJS_core = 'gba';
-            EJS_gameUrl = gameUrl;
-            EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
-            EJS_startOnLoaded = true;
+            // Configuración de EmulatorJS
+            window.EJS_player = '#game-container';
+            window.EJS_core = 'gba';
+            window.EJS_gameUrl = gameUrl;
+            window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
+            window.EJS_startOnLoaded = true;
+
+            // Cargar EmulatorJS solo una vez
+            if (!window.emulatorScriptLoaded) {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
+                script.onload = () => {
+                    window.emulatorScriptLoaded = true;
+                };
+                document.head.appendChild(script);
+            } else {
+                // Si ya se cargó, reiniciar manualmente (EmulatorJS lo maneja internamente al cambiar EJS_gameUrl)
+                if (typeof EJS_emulator !== 'undefined') {
+                    EJS_emulator.destroy();
+                }
+                new EmulatorJS(window.EJS_player, {
+                    core: window.EJS_core,
+                    url: window.EJS_gameUrl,
+                    pathtodata: window.EJS_pathtodata,
+                    startOnLoaded: window.EJS_startOnLoaded
+                });
+            }
         }
     </script>
 </body>
