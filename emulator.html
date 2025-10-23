@@ -1,143 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Emulador GBA - RetroHub</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            margin: 0;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
-            color: #333;
         }
-
         .container {
-            max-width: 1000px;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
         }
-
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: #4a5568;
-            font-weight: 700;
-        }
-
-        .game-selector {
-            margin-bottom: 30px;
-        }
-
-        .game-selector label {
-            display: block;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            font-weight: 600;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
             color: #2d3748;
         }
-
-        .game-selector select {
+        .game-selector {
+            margin-bottom: 24px;
+        }
+        .game-selector label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        select {
             width: 100%;
             max-width: 500px;
-            padding: 14px;
-            font-size: 1.1rem;
+            padding: 12px;
+            font-size: 1rem;
             border: 2px solid #667eea;
-            border-radius: 12px;
+            border-radius: 10px;
             background: white;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 16px;
         }
-
-        .game-selector select:hover {
-            border-color: #764ba2;
-        }
-
-        .btn-load {
-            margin-top: 15px;
-            padding: 14px 36px;
-            font-size: 1.15rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 12px;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: transform 0.2s;
         }
-
-        .btn-load:hover {
+        button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
-
         #game-container {
             width: 100%;
-            height: 600px;
+            height: 540px;
             background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 25px;
+            border-radius: 10px;
+            margin: 24px auto;
             display: none;
         }
-
         #game-container.active {
             display: block;
         }
-
         .instructions {
-            margin-top: 30px;
-            padding: 20px;
             background: #f8f9fa;
-            border-radius: 12px;
-            border-left: 5px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
             text-align: left;
         }
-
         .instructions h3 {
             margin-bottom: 12px;
             color: #2d3748;
-            font-size: 1.3rem;
         }
-
         .instructions ul {
             padding-left: 20px;
-            color: #4a5568;
         }
-
         .instructions li {
             margin: 6px 0;
         }
-
         .back-link {
             display: inline-block;
-            margin-top: 25px;
-            padding: 10px 24px;
-            background: #2d3748;
+            margin-top: 20px;
             color: white;
+            background: #2d3748;
             text-decoration: none;
+            padding: 8px 20px;
             border-radius: 8px;
             font-weight: 600;
-            transition: all 0.3s;
         }
-
         .back-link:hover {
             background: #4a5568;
-            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -149,14 +114,13 @@
             <label for="game-select">Selecciona un juego:</label>
             <select id="game-select">
                 <option value="">-- Elige un juego --</option>
-                <option value="games/gba/PokemonEdicionEsmeralda(Spain).gba">Pokémon Esmeralda</option>
+                <option value="games/gba/Pokemon - Edicion Esmeralda (Spain).gba">Pokémon Esmeralda</option>
                 <option value="games/gba/pokemon_rubi.gba">Pokémon Rubí</option>
                 <option value="games/gba/pokemon_zafiro.gba">Pokémon Zafiro</option>
                 <option value="games/gba/mario_kart.gba">Mario Kart: Super Circuit</option>
                 <option value="games/gba/zelda_minish.gba">The Legend of Zelda: The Minish Cap</option>
             </select>
-            <br>
-            <button class="btn-load" onclick="loadGame()">🚀 Cargar Juego</button>
+            <button onclick="loadGame()">🚀 Cargar Juego</button>
         </div>
 
         <div id="game-container"></div>
@@ -181,42 +145,24 @@
     <script src="https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js"></script>
     <script>
         function loadGame() {
-            const select = document.getElementById('game-select');
-            const gameUrl = select.value;
-
-            if (!gameUrl) {
-                alert('Por favor, selecciona un juego primero.');
+            const url = document.getElementById('game-select').value;
+            if (!url) {
+                alert('Por favor, selecciona un juego.');
                 return;
             }
 
-            // Limpiar contenedor previo
             const container = document.getElementById('game-container');
-            container.innerHTML = '';
             container.classList.add('active');
+            container.innerHTML = '';
 
             // Configurar EmulatorJS
             window.EJS_player = '#game-container';
             window.EJS_core = 'gba';
-            window.EJS_gameUrl = gameUrl;
+            window.EJS_gameUrl = url;
             window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
             window.EJS_startOnLoaded = true;
 
-            // Cargar el emulador (si no está cargado)
-            if (!window.emulatorScriptLoaded) {
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
-                script.onload = () => {
-                    window.emulatorScriptLoaded = true;
-                    startEmulator();
-                };
-                document.head.appendChild(script);
-            } else {
-                startEmulator();
-            }
-        }
-
-        function startEmulator() {
-            // Forzar recarga del emulador
+            // Reiniciar emulador
             if (typeof EJS_emulator !== 'undefined') {
                 EJS_emulator.destroy();
             }
