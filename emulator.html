@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emulador GBA - RetroHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .game-selector {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .game-selector label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .game-selector select {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .game-selector select:hover {
+            border-color: #764ba2;
+            transform: scale(1.02);
+        }
+
+        .game-selector select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-load {
+            margin-top: 15px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-load:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-load:active {
+            transform: translateY(0);
+        }
+
+        #game-container {
+            width: 100%;
+            height: 600px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+            margin-top: 20px;
+        }
+
+        #game-container.active {
+            display: block;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Emulador Game Boy Advance</h1>
+        
+        <div class="game-selector">
+            <label for="game-select">Selecciona un juego:</label>
+            <select id="game-select">
+                <option value="">-- Elige un juego --</option>
+                <option value="games/gba/Pokemon - Edicion Esmeralda (Spain).gba">Pokémon Esmeralda</option>
+                <option value="games/gba/pokemon_rubi.gba">Pokémon Rubí</option>
+                <option value="games/gba/pokemon_zafiro.gba">Pokémon Zafiro</option>
+                <option value="games/gba/mario_kart.gba">Mario Kart: Super Circuit</option>
+                <option value="games/gba/zelda_minish.gba">The Legend of Zelda: The Minish Cap</option>
+            </select>
+            <br>
+            <button class="btn-load" onclick="loadGame()">🚀 Cargar Juego</button>
+        </div>
+
+        <div id="game-container"></div>
+
+        <div class="instructions">
+            <h3>📋 Instrucciones:</h3>
+            <ul>
+                <li><strong>Flechas del teclado:</strong> D-Pad (mover)</li>
+                <li><strong>Z:</strong> Botón A</li>
+                <li><strong>X:</strong> Botón B</li>
+                <li><strong>A:</strong> Botón L</li>
+                <li><strong>S:</strong> Botón R</li>
+                <li><strong>Enter:</strong> Start</li>
+                <li><strong>Shift:</strong> Select</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="back-link">← Volver al inicio</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js"></script>
+    <script>
+        function loadGame() {
+            const select = document.getElementById('game-select');
+            const gameUrl = select.value;
+            
+            if (!gameUrl) {
+                alert('Por favor, selecciona un juego primero');
+                return;
+            }
+
+            const container = document.getElementById('game-container');
+            container.innerHTML = '';
+            container.classList.add('active');
+
+            EJS_player = '#game-container';
+            EJS_core = 'gba';
+            EJS_gameUrl = gameUrl;
+            EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
+            EJS_startOnLoaded = true;
+        }
+    </script>
+</body>
+</html>
