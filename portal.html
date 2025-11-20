@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroHub - Portal de Emulación Online</title>
+    <meta name="description" content="Portal para seleccionar emuladores retro de GBA, NDS, PS1, NES y SNES para jugar online.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader">
+            <div class="loading-logo">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            <span class="loading-text">Cargando Portal Retro</span>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="loadProgress"></div>
+                </div>
+                <span class="progress-text" id="progressText">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-player" id="musicPlayer">
+        <div class="player-header">
+            <div class="player-title">
+                <i class="fas fa-music"></i>
+                <span>RetroWave FM</span>
+            </div>
+            <button class="player-toggle" id="playerToggle">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <div class="player-content" id="playerContent">
+            <div class="player-info">
+                <div class="track-title" id="trackTitle">Synthwave Dreams</div>
+                <div class="track-artist">RetroHub Radio</div>
+            </div>
+            <div class="player-controls">
+                <button id="prevBtn" class="control-button">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button id="playPauseBtn" class="control-button play-pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="nextBtn" class="control-button">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+            <div class="volume-control">
+                <i class="fas fa-volume-up" id="volumeIcon"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                <span class="volume-percentage" id="volumePercentage">50%</span>
+            </div>
+        </div>
+    </div>
+
+    <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h1>RetroHub</h1>
+            </div>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="index.html#home" class="nav-link">Inicio</a></li>
+                    <li><a href="index.html#emulators" class="nav-link">Emuladores</a></li>
+                    <li><a href="index.html#roms" class="nav-link">ROMs</a></li>
+                    <li><a href="portal.html" class="nav-link active">🎮 Jugar Online</a></li>
+                    <li><a href="index.html#about" class="nav-link">Acerca de</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="search-toggle" id="searchToggle">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-overlay" id="searchOverlay">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Buscar emuladores, ROMs..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="search-close" id="searchClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="portal" class="section" style="padding-top: 10rem;">
+        <div class="section-header">
+            <h2 class="section-title">Portal de Emulación Web</h2>
+            <p class="section-subtitle">Selecciona una consola para iniciar la experiencia retro online. ¡Todo directamente en tu navegador!</p>
+        </div>
+        
+        <div class="grid-container" id="emulatorPortalGrid">
+            
+            <div class="card emulator-card fade-in" data-system="gba">
+                <div class="card-image">
+                    <div class="image-placeholder" style="color: var(--success-color);"><i class="fas fa-tv"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Game Boy Advance</h3>
+                    <div class="card-tags">
+                        <span class="tag verified-tag">32-bit</span>
+                        <span class="tag">Portátil</span>
+                    </div>
+                    <p>Emulador rápido y compatible para disfrutar de los clásicos de Nintendo como Pokémon y Zelda de 32 bits.</p>
+                    <div class="card-actions">
+                        <a href="gba/index.html" class="btn btn-primary" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);">
+                            <span>Jugar GBA</span>
+                            <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card emulator-card fade-in" data-system="snes">
+                <div class="card-image">
+                    <div class="image-placeholder" style="color: var(--error-color);"><i class="fas fa-gamepad"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Super Nintendo (SNES)</h3>
+                    <div class="card-tags">
+                        <span class="tag">16-bit</span>
+                        <span class="tag">Clásico</span>
+                    </div>
+                    <p>Revive la magia de los 16 bits de Nintendo con los grandes RPGs y plataformas de la consola.</p>
+                    <div class="card-actions">
+                        <a href="snes/index.html" class="btn btn-primary">
+                            <span>Jugar SNES</span>
+                            <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card emulator-card fade-in" data-system="nes">
+                <div class="card-image">
+                    <div class="image-placeholder" style="color: var(--primary-color);"><i class="fas fa-tv"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Nintendo (NES)</h3>
+                    <div class="card-tags">
+                        <span class="tag">8-bit</span>
+                        <span class="tag">Retro</span>
+                    </div>
+                    <p>Los orígenes del gaming: disfruta de los clásicos inmortales de 8 bits con emulación ligera.</p>
+                    <div class="card-actions">
+                        <a href="nes/index.html" class="btn btn-primary">
+                            <span>Jugar NES</span>
+                            <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card emulator-card fade-in" data-system="ps1">
+                <div class="card-image">
+                    <div class="image-placeholder" style="color: var(--secondary-color);"><i class="fab fa-playstation"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>PlayStation 1 (PSX)</h3>
+                    <div class="card-tags">
+                        <span class="tag popular-tag">3D</span>
+                        <span class="tag">CD-ROM</span>
+                    </div>
+                    <p>Revive la era del 3D con los títulos icónicos de la primera consola de Sony. Rendimiento variable según el dispositivo.</p>
+                    <div class="card-actions">
+                        <a href="ps1/index.html" class="btn btn-primary" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+                            <span>Jugar PSX</span>
+                            <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card emulator-card fade-in" data-system="nds">
+                <div class="card-image">
+                    <div class="image-placeholder" style="color: var(--accent-color);"><i class="fas fa-mobile-alt"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Nintendo DS (NDS)</h3>
+                    <div class="card-tags">
+                        <span class="tag">Doble Pantalla</span>
+                        <span class="tag">Beta</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>RetroHub</h3>
+                    </div>
+                    <p>La plataforma definitiva para la emulación retro.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-reddit"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html#emulators">Emuladores</a></li>
+                        <li><a href="index.html#roms">ROMs</a></li>
+                        <li><a href="index.html#about">Acerca de</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Comunidad</h4>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Foro</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Ayuda</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 RetroHub - Todos los derechos reservados</p>
+                </div>
+                <p class="disclaimer">
+                    Este sitio es puramente informativo. No alojamos contenido protegido por derechos de autor.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
