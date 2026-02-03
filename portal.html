@@ -27,35 +27,52 @@
     </div>
 
     <div class="music-player" id="musicPlayer">
-        <div class="player-header">
-            <div class="player-title">
-                <i class="fas fa-music"></i>
-                <span>RetroWave FM</span>
-            </div>
-            <button class="player-toggle" id="playerToggle">
-                <i class="fas fa-minus"></i>
-            </button>
-        </div>
         <div class="player-content" id="playerContent">
-            <div class="player-info">
-                <div class="track-title" id="trackTitle">Synthwave Dreams</div>
-                <div class="track-artist">RetroHub Radio</div>
+            <div class="cyber-deck-display">
+                <button id="playerToggle" class="deck-minimize-btn" title="Minimizar">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                </button>
+
+                <div class="cyber-visualizer">
+                    <div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div>
+                    <div class="v-bar peak"></div><div class="v-bar"></div><div class="v-bar"></div>
+                    <div class="v-bar peak"></div><div class="v-bar"></div><div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                </div>
+                <div class="track-info-readout">
+                    <h3 id="trackTitle" class="neon-text-cyan">SYSTEM READY</h3>
+                    <p class="track-artist">RetroHub Audio Module</p>
+                </div>
             </div>
-            <div class="player-controls">
-                <button id="prevBtn" class="control-button">
-                    <i class="fas fa-step-backward"></i>
-                </button>
-                <button id="playPauseBtn" class="control-button play-pause">
-                    <i class="fas fa-play"></i>
-                </button>
-                <button id="nextBtn" class="control-button">
-                    <i class="fas fa-step-forward"></i>
-                </button>
+
+            <div class="cyber-deck-controls">
+                <div class="secondary-controls-row">
+                    <button id="loopBtn" class="deck-btn small-btn" title="Bucle">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+
+                <div class="main-controls-row">
+                    <button id="prevBtn" class="deck-btn side-btn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    
+                    <button id="playPauseBtn" class="deck-btn hero-btn play-pause">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    
+                    <button id="nextBtn" class="deck-btn side-btn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
             </div>
-            <div class="volume-control">
-                <i class="fas fa-volume-up" id="volumeIcon"></i>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
-                <span class="volume-percentage" id="volumePercentage">50%</span>
+
+            <div class="cyber-volume-rack">
+                <i class="fas fa-volume-down icon-low"></i>
+                <div class="neon-slider-wrapper">
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                <i class="fas fa-volume-up icon-high"></i>
             </div>
         </div>
     </div>
@@ -275,6 +292,14 @@
     </footer>
 
     <div class="toast-container" id="toastContainer"></div>
+
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span id="modalClose" class="close">&times;</span>
+            <h2 id="modalTitle">Detalles</h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
